@@ -39,7 +39,11 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = (props) => {
       source={require('../../assets/images/crop.jpeg')}
       style={Styles.image}>
       <ScrollView>
-        <View style={Styles.screen}>
+        <View
+          style={{
+            ...Styles.screen,
+            marginTop: buttonHeight < 420 ? '-2%' : '10%',
+          }}>
           <Text style={Styles.title}>GOTCHA!</Text>
           <Text style={Styles.title}>Your number is:</Text>
           <NumberContainer selectedNumber={props.userNumber}></NumberContainer>
@@ -48,7 +52,9 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = (props) => {
             <Text style={Styles.heading}>{props.numberOfRounds} Rounds</Text>
           </Text>
           <View style={{marginTop: buttonHeight > 600 ? 260 : 100}}>
-            <MainButton style={Styles.newGame} onPress={props.startNewGame}>
+            <MainButton
+              style={{width: buttonHeight > 420 ? '100%' : 200}}
+              onPress={props.startNewGame}>
               START NEW GAME!!
             </MainButton>
           </View>
@@ -62,7 +68,7 @@ const Styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
-    marginTop: '10%',
+    padding: 10,
   },
   title: {
     fontSize: 24,
@@ -82,8 +88,5 @@ const Styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-  },
-  newGame: {
-    width: Dimensions.get('window').width / 2,
   },
 });

@@ -167,9 +167,11 @@ export const GameScreen: React.FC<GameScreenProps> = (props) => {
         data={pastGuesses}
         renderItem={renderListItem}
       />
-      <CancelButton style={Styles.restart} onPress={restartGame}>
-        RESTART GAME
-      </CancelButton>
+      <View style={Styles.restart}>
+        <CancelButton style={{margin: 2}} onPress={restartGame}>
+          RESTART GAME
+        </CancelButton>
+      </View>
     </View>
   );
 };

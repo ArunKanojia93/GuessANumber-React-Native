@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  TouchableNativeFeedback,
+  Platform,
+} from 'react-native';
 import Colors from '../../constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -13,10 +19,18 @@ interface LowerButtonProps {
 export const LowerButton: React.FunctionComponent<LowerButtonProps> = (
   props,
 ) => {
+  let ButtonComponent: any = TouchableNativeFeedback;
+
+  if (Platform.OS !== 'android' && Platform.Version < 21) {
+    ButtonComponent === TouchableOpacity;
+  }
+
   return (
-    <TouchableOpacity activeOpacity={0.1} onPress={props.onPress}>
-      <View style={{...Styles.button, ...props.style}}>{myIcon}</View>
-    </TouchableOpacity>
+    <View style={{overflow: 'hidden', borderRadius: 50}}>
+      <ButtonComponent activeOpacity={0.6} onPress={props.onPress}>
+        <View style={{...Styles.button, ...props.style}}>{myIcon}</View>
+      </ButtonComponent>
+    </View>
   );
 };
 

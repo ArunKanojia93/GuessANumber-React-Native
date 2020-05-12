@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Header} from './components';
 import {StartGameScreen, GameScreen} from './components/screens';
 import {GameOverScreen} from './components/screens/GameOverScreen';
@@ -42,9 +42,12 @@ const App: React.FC = () => {
 
   return (
     <View style={Styles.screen}>
-      <View style={Styles.semiCircle}></View>
-      <Header title={'Guess a Number'} />
-      {content}
+      <ImageBackground
+        source={require('./assets/images/wall.jpg')}
+        style={Styles.wall}>
+        <Header title={'Guess a Number'} />
+        {content}
+      </ImageBackground>
     </View>
   );
 };
@@ -52,16 +55,9 @@ const App: React.FC = () => {
 const Styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, .1)',
   },
-  semiCircle: {
-    position: 'absolute',
-    width: 800,
-    height: 800,
-    borderRadius: 800 / 2,
-    backgroundColor: 'aqua',
-    top: '-28%',
-    left: '-108%',
+  wall: {
+    flex: 1,
   },
 });
 

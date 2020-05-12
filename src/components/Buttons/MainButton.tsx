@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
+  TouchableNativeFeedback,
+  Platform,
 } from 'react-native';
 import Colors from '../../constants/Colors';
 
@@ -14,12 +15,20 @@ interface MainButtonProps {
 }
 
 export const MainButton: React.FunctionComponent<MainButtonProps> = (props) => {
+  let ButtonComponent: any = TouchableNativeFeedback;
+
+  if (Platform.OS !== 'android' && Platform.Version < 21) {
+    ButtonComponent === TouchableOpacity;
+  }
+
   return (
-    <TouchableOpacity onPress={props.onPress}>
-      <View style={{...Styles.button, ...props.style}}>
-        <Text style={Styles.buttonText}>{props.children}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={{overflow: 'hidden', borderRadius: 20}}>
+      <ButtonComponent activeOpacity={0.6} onPress={props.onPress}>
+        <View style={{...Styles.button, ...props.style}}>
+          <Text style={Styles.buttonText}>{props.children}</Text>
+        </View>
+      </ButtonComponent>
+    </View>
   );
 };
 

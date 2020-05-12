@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
+  Platform,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 interface CancelButtonProps {
@@ -15,12 +16,20 @@ interface CancelButtonProps {
 export const CancelButton: React.FunctionComponent<CancelButtonProps> = (
   props,
 ) => {
+  let ButtonComponent: any = TouchableNativeFeedback;
+
+  if (Platform.OS !== 'android' && Platform.Version < 21) {
+    ButtonComponent === TouchableOpacity;
+  }
+
   return (
-    <TouchableOpacity onPress={props.onPress}>
-      <View style={{...Styles.button, ...props.style}}>
-        <Text style={Styles.buttonText}>{props.children}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={{overflow: 'hidden', borderRadius: 20}}>
+      <ButtonComponent activeOpacity={0.6} onPress={props.onPress}>
+        <View style={{...Styles.button, ...props.style}}>
+          <Text style={Styles.buttonText}>{props.children}</Text>
+        </View>
+      </ButtonComponent>
+    </View>
   );
 };
 
