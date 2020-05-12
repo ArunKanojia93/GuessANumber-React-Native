@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Header} from './components';
 import {StartGameScreen, GameScreen} from './components/screens';
 import {GameOverScreen} from './components/screens/GameOverScreen';

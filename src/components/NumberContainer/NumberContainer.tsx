@@ -3,11 +3,14 @@ import {StyleSheet, Text} from 'react-native';
 
 interface NumberContainerProps {
   selectedNumber: number | undefined;
+  style?: any;
 }
 
 export const NumberContainer: React.FC<NumberContainerProps> = (props) => {
   return (
-    <Text style={Styles.finalConfirmationText}>{props.selectedNumber}</Text>
+    <Text style={{...Styles.finalConfirmationText, ...props.style}}>
+      {props.selectedNumber}
+    </Text>
   );
 };
 

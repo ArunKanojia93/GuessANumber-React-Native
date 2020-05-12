@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   Text,
-  Button,
-  Image,
   ImageBackground,
+  Dimensions,
+  ScrollView,
 } from 'react-native';
 import {NumberContainer} from '../NumberContainer';
 import {MainButton} from '../Buttons';
@@ -17,22 +17,43 @@ interface GameOverScreenProps {
 }
 
 export const GameOverScreen: React.FC<GameOverScreenProps> = (props) => {
+  const [
+    buttonHeight = Dimensions.get('window').height,
+    setButtonHeight,
+  ] = useState();
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setButtonHeight(Dimensions.get('window').height);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    };
+  });
+
   return (
     <ImageBackground
       source={require('../../assets/images/crop.jpeg')}
       style={Styles.image}>
-      <View style={Styles.screen}>
-        <Text style={Styles.title}>GOTCHA!</Text>
-        <Text style={Styles.title}>Your number is:</Text>
-        <NumberContainer selectedNumber={props.userNumber}></NumberContainer>
-        <Text style={Styles.title}>
-          Guessed in:{' '}
-          <Text style={Styles.heading}>{props.numberOfRounds} Rounds</Text>
-        </Text>
-        <View style={{marginTop: 'auto', marginBottom: '20%'}}>
-          <MainButton onPress={props.startNewGame}>START NEW GAME!!</MainButton>
+      <ScrollView>
+        <View style={Styles.screen}>
+          <Text style={Styles.title}>GOTCHA!</Text>
+          <Text style={Styles.title}>Your number is:</Text>
+          <NumberContainer selectedNumber={props.userNumber}></NumberContainer>
+          <Text style={Styles.title}>
+            Guessed in:{' '}
+            <Text style={Styles.heading}>{props.numberOfRounds} Rounds</Text>
+          </Text>
+          <View style={{marginTop: buttonHeight > 600 ? 260 : 100}}>
+            <MainButton style={Styles.newGame} onPress={props.startNewGame}>
+              START NEW GAME!!
+            </MainButton>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -48,7 +69,7 @@ const Styles = StyleSheet.create({
     marginTop: 5,
     fontFamily: 'RobotoSlab-Bold',
     letterSpacing: 2,
-    textShadowRadius: 140,
+    textShadowRadius: 40,
     textShadowColor: '#000',
     color: '#fff',
   },
@@ -61,5 +82,8 @@ const Styles = StyleSheet.create({
   },
   image: {
     flex: 1,
+  },
+  newGame: {
+    width: Dimensions.get('window').width / 2,
   },
 });
