@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {StyleSheet, ImageBackground, SafeAreaView} from 'react-native';
 import {Header} from './components';
 import {StartGameScreen, GameScreen} from './components/screens';
 import {GameOverScreen} from './components/screens/GameOverScreen';
@@ -41,14 +41,14 @@ const App: React.FC = () => {
   }
 
   return (
-    <View style={Styles.screen}>
+    <SafeAreaView style={Styles.screen}>
       <ImageBackground
         source={require('./assets/images/wall.jpg')}
         style={Styles.wall}>
         <Header title={'Guess a Number'} />
         {content}
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 };
 
